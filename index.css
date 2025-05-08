@@ -1,0 +1,595 @@
+@font-face {
+    font-family: 'DS-Digital';
+    src: url('fonts/DS-DIGIB.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo do site */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Container principal responsivo */
+.container {
+    max-width: 90%;
+    width: 800px;
+    margin: 0 auto;
+    background: #111;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
+    text-align: center;
+}
+
+/* Título */
+h1 {
+    color: #ffa500;
+    font-size: 32px;
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+}
+
+/* Botões estilizados */
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 45%;
+    min-width: 180px;
+}
+
+.controls button#addTimer {
+    background: linear-gradient(145deg, #4caf50, #3a8e40);
+}
+
+.controls button#clearTimers {
+    background: linear-gradient(145deg, #f44336, #c73328);
+}
+
+/* Animação de hover */
+.controls button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Tabela de Temporizadores */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    text-align: center;
+    padding: 14px;
+    border: 1px solid #333;
+}
+
+th {
+    background: #222;
+    color: #ffa500;
+    font-size: 20px;
+}
+
+td {
+    background: #111;
+}
+
+/* Relógio digital aprimorado */
+.time-display {
+    font-family: 'DS-Digital', sans-serif;
+    font-size: 48px;
+    letter-spacing: 4px;
+    color: #ffa500;
+    text-shadow: 0 0 15px rgba(255, 165, 0, 0.9);
+    padding: 12px;
+    display: inline-block;
+    width: 190px;
+    text-align: center;
+    background: rgba(255, 165, 0, 0.1);
+    border-radius: 8px;
+    border: 3px solid rgba(255, 165, 0, 0.3);
+}
+
+/* Formato HH:MM:SS */
+.time-display::after {
+    content: "";
+}
+
+/* Botões dentro da tabela */
+td button {
+    padding: 12px;
+    margin: 4px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    font-size: 16px;
+    width: 90px;
+}
+
+td button.play {
+    background: linear-gradient(145deg, #4caf50, #3a8e40);
+    color: white;
+}
+
+td button.reset {
+    background: linear-gradient(145deg, #f44336, #c73328);
+    color: white;
+}
+
+/* ✅ NOVO: Botão Editar (Azul Metálico) */
+td button.edit {
+    background: linear-gradient(145deg, #1E90FF, #1565C0);
+    color: white;
+}
+
+/* ✅ NOVO: Botões de Setas (Cinza Metálico) */
+td button.move-up, td button.move-down {
+    background: linear-gradient(145deg, #888888, #666666);
+    color: white;
+}
+
+td button.fullscreen {
+    background: linear-gradient(145deg, #ff9800, #d88200);
+    color: white;
+}
+
+td button:hover {
+    transform: scale(1.1);
+}
+
+/* Tela cheia com transição aprimorada */
+.fullscreen-timer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    color: #ffa500;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.9);
+    z-index: 1000;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.fullscreen-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.fullscreen-timer.show {
+    display: flex;
+    opacity: 1;
+}
+
+.fullscreen-timer h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-bottom: 2vh;
+    text-shadow: 0 0 15px rgba(255, 165, 0, 0.9);
+}
+
+.fullscreen-timer h2 {
+    font-family: 'DS-Digital', sans-serif;
+    font-size: clamp(4rem, 20vw, 20rem);
+    letter-spacing: clamp(0.5rem, 2vw, 2rem);
+    line-height: 1.2;
+    color: #ffa500;
+    text-shadow: 0 0 20px rgba(255, 165, 0, 0.8);
+    margin: 2vh 0;
+    white-space: nowrap;
+}
+
+.fullscreen-controls {
+    display: flex;
+    gap: clamp(10px, 2vw, 20px);
+    margin-top: clamp(15px, 3vh, 30px);
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: auto;
+    cursor: default;
+}
+
+.fullscreen-controls button {
+    padding: clamp(10px, 2vw, 15px) clamp(20px, 4vw, 30px);
+    font-size: clamp(16px, 3vw, 24px);
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    min-width: clamp(150px, 30vw, 200px);
+    pointer-events: auto;
+}
+
+.fullscreen-controls .play {
+    background: linear-gradient(145deg, #4caf50, #3a8e40);
+    color: white;
+}
+
+.fullscreen-controls .reset {
+    background: linear-gradient(145deg, #f44336, #c73328);
+    color: white;
+}
+
+.fullscreen-controls button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.fullscreen-timer .exit-fullscreen {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: linear-gradient(145deg, #f44336, #c73328);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.fullscreen-timer .exit-fullscreen:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* Modais estilizados */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #222;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 420px;
+    text-align: center;
+}
+
+.modal-content input {
+    margin: 12px 0;
+    padding: 12px;
+    width: 85%;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.modal-content button {
+    margin-top: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.modal-content button.close {
+    background: linear-gradient(145deg, #f44336, #c73328);
+    color: white;
+}
+
+.modal-content button.add {
+    background: linear-gradient(145deg, #4caf50, #3a8e40);
+    color: white;
+}
+
+.modal-content button:hover {
+    transform: scale(1.05);
+}
+
+/* 🔹 Responsividade */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls button {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .time-display {
+        font-size: 36px;
+        width: 150px;
+    }
+
+    td button {
+        padding: 8px;
+        width: 70px;
+        font-size: 14px;
+        margin: 2px;
+    }
+
+    .fullscreen-timer h2 {
+        font-size: clamp(3rem, 15vw, 15rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .time-display {
+        font-size: 28px;
+        width: 120px;
+        letter-spacing: 2px;
+    }
+
+    td button {
+        padding: 6px;
+        width: 60px;
+        font-size: 12px;
+    }
+
+    .fullscreen-timer h1 {
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+
+    .fullscreen-timer h2 {
+        font-size: clamp(2.5rem, 12vw, 12rem);
+        letter-spacing: clamp(0.3rem, 1vw, 1rem);
+    }
+}
+
+/* Melhorias na tabela para dispositivos móveis */
+@media (max-width: 600px) {
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px 4px;
+    }
+
+    td button {
+        display: block;
+        width: 100%;
+        margin: 4px auto;
+    }
+}
+
+@keyframes blinkYellow {
+    0%, 100% { background: rgba(0, 0, 0, 1); }
+    50% { background: rgba(255, 165, 0, 0.3); }
+}
+
+@keyframes blinkRed {
+    0%, 100% { background: rgba(0, 0, 0, 1); }
+    50% { background: rgba(255, 0, 0, 0.3); }
+}
+
+.fullscreen-timer.blink-yellow {
+    animation: blinkYellow 1s infinite;
+}
+
+.fullscreen-timer.blink-red {
+    animation: blinkRed 1s infinite;
+}
+
+/* Removendo as animações antigas do time-display */
+.time-display.blink-yellow,
+.time-display.blink-red {
+    animation: none;
+}
+
+.responsavel-container {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.responsavel-container input {
+    width: 100%;
+    max-width: 600px;
+    padding: 12px;
+    border: 2px solid #ffa500;
+    border-radius: 8px;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.responsavel-container input:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.responsavel-container input::placeholder {
+    color: #666;
+}
+
+.fullscreen-timer .responsavel-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: #ffa500;
+    padding: clamp(10px, 2vh, 20px);
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
+    white-space: nowrap;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(255, 165, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fullscreen-timer .responsavel-info .text-display,
+.fullscreen-timer .responsavel-info .fullscreen-input {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    font-size: inherit;
+    font-family: inherit;
+    text-transform: uppercase;
+}
+
+.fullscreen-timer .responsavel-info .fullscreen-input {
+    background: transparent;
+    border: none;
+    color: #ffa500;
+    padding: 0;
+    outline: none;
+}
+
+.fullscreen-timer .responsavel-info .edit-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    z-index: 2;
+}
+
+.fullscreen-timer .responsavel-info .edit-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #ffa500;
+}
+
+.fullscreen-timer .responsavel-info .edit-label {
+    color: #ffa500;
+    font-size: 1.1rem;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 165, 0, 0.5);
+}
+
+.fullscreen-timer .responsavel-info .text-display.marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    will-change: transform;
+    position: relative;
+    transform: translateX(120%);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-120%);
+    }
+}
+
+/* Ajustes responsivos adicionais */
+@media (max-width: 1366px) {
+    .fullscreen-timer .responsavel-info {
+        font-size: clamp(1.2rem, 2.5vw, 2rem);
+        padding: clamp(8px, 1.5vh, 15px);
+    }
+    .fullscreen-timer .responsavel-info .text-display.marquee {
+        animation-duration: 12s;
+    }
+}
+
+@media (max-width: 768px) {
+    .fullscreen-timer .responsavel-info {
+        font-size: clamp(1rem, 2vw, 1.5rem);
+        padding: clamp(6px, 1vh, 12px);
+    }
+    .fullscreen-timer .responsavel-info .text-display.marquee {
+        animation-duration: 10s;
+    }
+}
+
+.logo-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    max-height: 100px;
+    filter: brightness(0.9) drop-shadow(0 0 8px rgba(255, 165, 0, 0.5));
+    transition: transform 0.3s ease-in-out;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
