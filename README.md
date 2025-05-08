@@ -22,9 +22,8 @@ Nossa intenção é tornar a condução dos cultos e eventos **mais organizada**
 ## 🏛️ Igreja
 
 **Primeira Igreja Batista em Mogi das Cruzes**  
-Rua Barão de Jaceguai, 1128 – Centro  
+Rua Barão de Jaceguai, 1019 – Centro  
 Mogi das Cruzes – SP  
-[Site Oficial (em construção)](#)
 
 ## 🛠️ Tecnologias utilizadas
 
