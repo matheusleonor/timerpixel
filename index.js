@@ -6,7 +6,7 @@ let blinkInterval; // Variável para armazenar o intervalo de piscar
 const predefinedTimers = [
     { minutes: 5, title: "MÚSICA INICIAL" },
     { minutes: 23, title: "LOUVOR" },
-    { minutes: 5, title: "DÍZIMO" },
+    { minutes: 6, title: "DÍZIMO" },
     { minutes: 5, title: "LOUVOR DO DÍZIMO" },
     { minutes: 3, title: "BOAS VINDAS E AVISOS MACRO" },
     { minutes: 55, title: "MENSAGEM E ENCERRAMENTO" }
